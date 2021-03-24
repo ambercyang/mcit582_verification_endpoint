@@ -37,13 +37,12 @@ app.url_map.strict_slashes = False
 
 @app.route('/verify', methods=['GET','POST'])
 def verify():
-    content = request.get_json(silent=True)   
-    
     result = False
-    sig = content['sig']
+    content = request.get_json(silent=True)    
+    sk = content['sig']
     payload = content['payload']
     platform = content['payload']['platform']
-    message = json.dumps(content['payload'])
+    message = json.dumps(paylod)
     pk = payload['pk']
 
     
@@ -59,16 +58,16 @@ def verify():
         #payload = "Sign this!"
 
         eth_encoded_msg = eth_account.messages.encode_defunct(text=message)
-        eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sig)
+        eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sk)
         print( eth_sig_obj.messageHash )
-        recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=sig)
+        recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=k)
         if(recovered_pk ==pk):
             result = True
             print( "Eth sig verifies!" )    
     
     #2. Verifying an endpoint for verifying signatures for Algorand
     elif platform == "Algorand":
-        result=algosdk.util.verify_bytes(message.encode('utf-8'),sig,pk)
+        result = algosdk.util.verify_bytes(msg.encode('utf-8'),sk,pk)
         if(result):
             print( "Algo sig verifies!" )
     
