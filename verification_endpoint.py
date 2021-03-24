@@ -58,8 +58,8 @@ def verify():
         #payload = "Sign this!"
 
         eth_encoded_msg = eth_account.messages.encode_defunct(text=message)
-        eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sk)
-        print( eth_sig_obj.messageHash )
+        #eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sk)
+        #print( eth_sig_obj.messageHash )
         recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=sk)
         if(recovered_pk ==pk):
             result = True
