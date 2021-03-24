@@ -67,7 +67,7 @@ def verify():
     
     #2. Verifying an endpoint for verifying signatures for Algorand
     elif platform == "Algorand":
-        result = algosdk.util.verify_bytes(msg.encode('utf-8'),sk,pk)
+        result = algosdk.util.verify_bytes(message.encode('utf-8'),sk,pk)
         if(result):
             print( "Algo sig verifies!" )
     
