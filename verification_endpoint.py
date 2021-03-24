@@ -42,7 +42,7 @@ def verify():
     result = False
     sig = content['sig']
     payload = content['payload']
-    platform == content['payload']['platform']
+    platform = content['payload']['platform']
     message = json.dumps(content['payload'])
     pk = payload['pk']
 
