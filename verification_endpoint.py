@@ -61,7 +61,7 @@ def verify():
         eth_encoded_msg = eth_account.messages.encode_defunct(text=message)
         eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sig)
         print( eth_sig_obj.messageHash )
-        result = eth_account.Account.recover_message(eth_encoded_msg,signature=eth_sig_obj.signature.hex()) == pk
+        result = eth_account.Account.recover_message(eth_encoded_msg,signature=sig) == pk
         print( "Eth sig verifies!" )    
     
     #2. Verifying an endpoint for verifying signatures for Algorand
