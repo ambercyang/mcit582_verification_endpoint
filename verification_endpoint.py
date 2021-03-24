@@ -42,8 +42,8 @@ def verify():
     sk = content['sig']
     payload = content['payload']
     platform = content['payload']['platform']
-    message = json.dumps(payload)
-    pk = payload['pk']
+    #message = json.dumps(payload)
+    #pk = payload['pk']
 
     
     #1. Verifying an endpoint for verifying signatures for ethereum
@@ -56,11 +56,12 @@ def verify():
         #eth_sk = acct.key
 
         #payload = "Sign this!"
-
+        message = json.dumps(payload)
+        pk = payload['pk']
         eth_encoded_msg = eth_account.messages.encode_defunct(text=message)
         eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,sk)
         print( eth_sig_obj.messageHash )
-        recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=k)
+        recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=pk)
         if(recovered_pk ==pk):
             result = True
             print( "Eth sig verifies!" )    
